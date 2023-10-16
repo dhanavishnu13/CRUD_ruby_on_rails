@@ -1,8 +1,17 @@
 # README
 
-This is an Expense Tracker application that uses Ruby on Rails.
+This is an Expense Tracker application that uses Ruby on Rails. the basic version of the App features:
+- User Authentication
+- Addition, updating and Removal of user's Expense
+- UI is built using Bootstrap
 
 ![image](https://github.com/dhanavishnu13/CRUD_ruby_on_rails/assets/83368841/5e645d54-1675-4342-b120-efbd79ed278e)
+
+Future plan:
+- Receipt Tracking
+- Automated Expense Categorization
+- Budget Management
+- Analytics and Insights
 
 This README would normally document steps that are necessary to get the
 application up and running.
@@ -25,8 +34,6 @@ Things to cover:
 
 * Deployment instructions
 
-* ...
-
 * Check the Ruby version
     ![image](https://github.com/dhanavishnu13/CRUD_ruby_on_rails/assets/83368841/eb4bc1f2-9da8-47b5-8bd7-4df0e56a21b7)
 
@@ -43,6 +50,3 @@ Things to cover:
  
 * To run the application
   -Run "rails s"
-
-* 
-
