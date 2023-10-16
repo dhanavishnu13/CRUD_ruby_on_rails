@@ -11,6 +11,7 @@ Future plan:
 - Receipt Tracking
 - Automated Expense Categorization
 - Budget Management
+- Search and filters on Expense
 - Analytics and Insights
 
 This README would normally document steps that are necessary to get the
