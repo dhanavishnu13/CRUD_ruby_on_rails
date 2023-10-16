@@ -1,0 +1,18 @@
+<%= link_to "Back to expenses", expenses_path, class:"btn btn-secondary" %>
+<br/><br/>
+
+
+<div class="card text-center">
+  <div class="card-header">
+    Featured
+  </div>
+  <div class="card-body">
+    <%= render @expense %>
+    <%= link_to "Edit this expense", edit_expense_path(@expense), class:"btn btn-secondary" %>
+    <br/><br/>
+    <%= button_to "Destroy this expense", @expense, method: :delete, class:"btn btn-danger" %>
+  </div>
+  <div class="card-footer text-body-secondary">
+    2 days ago
+  </div>
+</div>
