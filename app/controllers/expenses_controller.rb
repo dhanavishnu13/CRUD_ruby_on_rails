@@ -1,6 +1,7 @@
 class ExpensesController < ApplicationController
   before_action :set_expense, only: %i[ show edit update destroy ]
-
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :correct_user, only: [:edit, :update, :destroy]
   # GET /expenses or /expenses.json
   def index
     @expenses = Expense.all
@@ -12,7 +13,8 @@ class ExpensesController < ApplicationController
 
   # GET /expenses/new
   def new
-    @expense = Expense.new
+    # @expense = Expense.new
+    @expense = current_user.expenses.build()
   end
 
   # GET /expenses/1/edit
@@ -21,8 +23,8 @@ class ExpensesController < ApplicationController
 
   # POST /expenses or /expenses.json
   def create
-    @expense = Expense.new(expense_params)
-
+    # @expense = Expense.new(expense_params)
+    @expense = current_user.expenses.build(expense_params)
     respond_to do |format|
       if @expense.save
         format.html { redirect_to expense_url(@expense), notice: "Expense was successfully created." }
@@ -55,6 +57,11 @@ class ExpensesController < ApplicationController
       format.html { redirect_to expenses_url, notice: "Expense was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def correct_user
+    @expense = current_user.expenses.find_by(id: params[:id])
+    redirect_to expenses_path, notice: "Not Authorized To Edit This Expense" if @expense.nil?
   end
 
   private
