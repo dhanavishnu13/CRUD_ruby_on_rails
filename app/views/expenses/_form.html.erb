@@ -10,33 +10,50 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="col-md-6">
-    <% form.label :payee_name, style: "display: block" %>
-    <%= form.text_field :payee_name, class:"form-control", placeholder:"Payee Name" %>
+  <form class="row g-3">
+    <div class="col-md-6">
+      <% form.label :payee_name, style: "display: block" %>
+      <%= form.text_field :payee_name, class:"form-control", placeholder:"Payee Name" %>
+    </div>
+    <br/>
+    <div class="col-md-6">
+        <div class="input-group">
+          <span class="input-group-text" id="basic-addon3">Find Category</span>
+          <%= form.select :category, options_for_select([["food", "food"], ["transportation", "transportation"], ["entertainment","entertainment"], ["rent","rent"], ["other", "other"]]) %>
+        </div>
+    </div>
+    <br/>
+    <div class="col-12">
+      <% form.label :description, style: "display: block" %>
+      <%= form.text_field :description,class:"form-control", placeholder:"Description"  %>
+    </div>
+    <br/>
+    <div class="col-md-6">
+      <% form.label :amount, style: "display: block" %>
+      <%= form.text_field :amount,class:"form-control", placeholder:"Amount"  %>
+    </div>
+    <br/>
+    <div class="col-md-6">
+      <% form.label :user_id, style: "display: block" %>
+      <%= form.text_field :user_id,id: :expense_user_id,class:"form-control", value:current_user.id, type: :hidden  %>
+    </div>
+    <div class="col-md-6">
+        <div class="input-group">
+          <span class="input-group-text" id="basic-addon3">Current Status</span>
+          <%= form.select :status, options_for_select([["Paid", "Paid"], ["Not Paid", "Not Paid"]]) %>
+        </div>
+    </div>
+    <br/>
+  <div class="col-md-12">
+    <div class="input-group">
+    <span class="input-group-text" id="basic-addon3">Due Date</span>
+    <%= form.date_field :due_date, value: Date.today %>
+    </div>
   </div>
   <br/>
-  <div class="col-md-6">
-    <% form.label :category, style: "display: block" %>
-    <%= form.text_field :category, class:"form-control", placeholder:"Category"  %>
-  </div>
-  <br/>
-  <div class="col-md-6">
-    <% form.label :description, style: "display: block" %>
-    <%= form.text_field :description,class:"form-control", placeholder:"Description"  %>
-  </div>
-  <br/>
-  <div class="col-md-6">
-    <% form.label :amount, style: "display: block" %>
-    <%= form.text_field :amount,class:"form-control", placeholder:"Amount"  %>
-  </div>
-  <br/>
-  <div class="col-md-6">
-    <% form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id,id: :expense_user_id,class:"form-control", value:current_user.id, type: :hidden  %>
-  </div>
-  <br/>
-  <div class="action">
-    <%= form.submit  class:"btn btn-success" %>
-  </div>
+    
+    <div class="action">
+      <%= form.submit  class:"btn btn-success" %>
+    </div>
+</form>
 <% end %>

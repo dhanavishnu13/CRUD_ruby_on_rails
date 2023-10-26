@@ -4,8 +4,16 @@ class ExpensesController < ApplicationController
   before_action :correct_user, only: [:edit, :update, :destroy]
   # GET /expenses or /expenses.json
   def index
-    @expenses = Expense.all
-  end
+    # Assuming you have a current_user method that returns the current user
+    @current_user = current_user
+    @expenses = Expense.where(user_id: @current_user.id)
+    if params[:start_date].present? && params[:end_date].present?
+      @expenses = @expenses.where(due_date: params[:start_date]..params[:end_date])
+    end
+    @total_amount = @expenses.sum(:amount)
+    @category_amount = @expenses.group(:category).sum(:amount)
+    @order_date=@expenses.order(:due_date)
+  end 
 
   # GET /expenses/1 or /expenses/1.json
   def show
@@ -64,6 +72,11 @@ class ExpensesController < ApplicationController
     redirect_to expenses_path, notice: "Not Authorized To Edit This Expense" if @expense.nil?
   end
 
+  def total_amount
+    @expense = current_user.expenses.find_by(id: params[:id])
+    
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_expense
@@ -72,6 +85,6 @@ class ExpensesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def expense_params
-      params.require(:expense).permit(:payee_name, :category, :description, :amount, :user_id)
+      params.require(:expense).permit(:payee_name, :category, :description, :amount, :user_id, :status, :due_date)
     end
 end
