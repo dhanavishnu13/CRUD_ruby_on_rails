@@ -6,13 +6,15 @@ class ExpensesController < ApplicationController
   def index
     # Assuming you have a current_user method that returns the current user
     @current_user = current_user
-    @expenses = Expense.where(user_id: @current_user.id)
-    if params[:start_date].present? && params[:end_date].present?
-      @expenses = @expenses.where(due_date: params[:start_date]..params[:end_date])
+    if user_signed_in?
+      @expenses = Expense.where(user_id: @current_user.id)
+      if params[:start_date].present? && params[:end_date].present?
+        @expenses = @expenses.where(due_date: params[:start_date]..params[:end_date])
+      end
+      @total_amount = @expenses.sum(:amount)
+      @category_amount = @expenses.group(:category).sum(:amount)
+      @order_date=@expenses.order(:due_date)
     end
-    @total_amount = @expenses.sum(:amount)
-    @category_amount = @expenses.group(:category).sum(:amount)
-    @order_date=@expenses.order(:due_date)
   end 
 
   # GET /expenses/1 or /expenses/1.json
