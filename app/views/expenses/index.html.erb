@@ -2,7 +2,42 @@
 
 
 <% if user_signed_in? %>
-  <h1>Expenses List</h1>
+  <h3>Expenses List</h3>
+  <br/>
+  <div style='align: left'>
+    <form method="get" action="<%= expenses_path %>">
+        <div class="row g-1">
+          <div class="col-md-2">
+            <%= label_tag 'start_date', 'Start Date:' %>
+            <%= date_field_tag 'start_date', params[:start_date] %>
+          </div>
+
+          <div class="col-md-2">
+            <%= label_tag 'end_date', 'End Date:' %>
+            <%= date_field_tag 'end_date', params[:end_date] %>
+          </div>
+          <div class="col-md-2">
+          <label>
+            <input type="checkbox" name="order_by_due_date" value="1" <%= params[:order_by_due_date] == '1' ? 'checked' : '' %>/>
+            Order by Due Date
+          </label>
+          </div>
+
+          <div class="col-md-2">
+            <%= submit_tag 'Apply Filter', class: 'btn btn-secondary' %>
+          </div>
+
+          <div class="col-md-4">
+            <div class="input-group mb-1">
+            <%= label_tag 'search', 'Search:',class:"input-group-text" %>
+            <%= text_field_tag 'search', params[:search] %>
+            </div>
+      
+          </div>
+        </div>
+    </form>
+  </div>
+  <br/>
   <div id="expenses"> 
     <table class="table table-striped table-bordered"> 
       <thead class="table-dark"> 
@@ -17,6 +52,17 @@
         </tr> 
       </thead> 
       <tbody> 
+        <% if @expenses.empty?%>
+        <tr><td colspan="7">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-6 text-center"> <!-- Use col-6 for 6 columns and text-center to center align -->
+             No record found!
+            </div>
+          </div>
+        </div>
+        </td></tr>
+        <% else%>
         <% @expenses.each do |expense| %>
         <% if expense.user_id==current_user.id%>
         <tr>
@@ -30,30 +76,77 @@
         </tr>
         <%end%>
       <% end %>
+      <% end%>
       </tbody> 
     </table> 
-    <form method="get" action="<%= expenses_path %>">
-      <div class="row">
-        <div class="col">
-          <%= label_tag 'start_date', 'Start Date:' %>
-          <%= date_field_tag 'start_date', params[:start_date] %>
+    
+    <%= link_to "New expense", new_expense_path, class:"btn btn-primary" %>
+    <br/>
+    <br/>
+    <div class="container">
+  <h3>Summary</h3>
+  <div class="row">
+    <div class="col-6">
+      <div class="card">
+        <div class="card-header">
+          <h5>Status</h5>
         </div>
-
-        <div class="col">
-          <%= label_tag 'end_date', 'End Date:' %>
-          <%= date_field_tag 'end_date', params[:end_date] %>
-        </div>
-
-        <div class="col">
-          <%= submit_tag 'Apply Filter', class: 'btn btn-primary' %>
+        <div class="card-body">
+          <table class="table table-striped table-borderless">
+          <thead class="table-dark"> 
+          <tr> 
+            <th scope="col">Status</th>
+            <th scope='col'>Amount</th>
+          </tr>
+          </thead>
+          <tbody> 
+          <% @total_amount.each do |status, sum| %>
+          <tr>
+          <td><%= status %></td>
+          <td><%= sum %></td>
+          </tr>
+          <% end %>
+          </tbody>
+          
+          <tr>
+            
+            <td> <strong>Total amount</strong></td> 
+            <td><strong><%= @total_amount.values.sum%></strong></td>
+            
+          </tr>
+          
+          </table>
         </div>
       </div>
-    </form>
-    <p>Total amount: <%= @total_amount %></p>
-    <% @category_amount.each do |category, sum| %>
-      <p>Category: <%= category %>, Total Sum: <%= sum %></p>
-    <% end %>
-    <%= link_to "New expense", new_expense_path, class:"btn btn-secondary" %>
+    </div>
+    <div class="col-6">
+      <div class="card">
+        <div class="card-header">
+          <h5>Category</h5>
+        </div>
+        <div class="card-body">
+          <table class="table table-striped table-borderless">
+          <thead class="table-dark"> 
+          <tr> 
+            <th scope="col">Category</th>
+            <th scope='col'>Amount</th>
+          </tr>
+          </thead>
+          <tbody> 
+          <% @category_amount.each do |category, sum| %>
+          <tr>
+          <td><%= category %></td>
+          <td><%= sum %></td>
+          </tr>
+          <% end %>
+          </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
   </div>
 <%else%>
     <h3>Do you want to manage your expense ?</h3>
