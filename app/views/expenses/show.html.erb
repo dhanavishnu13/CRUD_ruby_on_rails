@@ -13,6 +13,6 @@
     <%= button_to "Destroy this expense", @expense, method: :delete, class:"btn btn-danger" %>
   </div>
   <div class="card-footer text-body-secondary">
-  <%= @expense.updated_at%>
+  <%= @expense.updated_at.in_time_zone("Asia/Kolkata").strftime("%Y-%m-%d %I:%M %p %Z")%>
   </div>
 </div>

@@ -1,32 +1,33 @@
-<div id="<%= dom_id expense %>">
-  <p>
-    <strong>Payee name:</strong>
-    <%= expense.payee_name %>
-  </p>
+<div id="<%= dom_id expense %>" class="expense-container">
+  <div class="expense-details">
+    <p class="payee-name">
+      <strong>Payee name:</strong>
+      <%= expense.payee_name %>
+    </p>
 
-  <p>
-    <strong>Category:</strong>
-    <%= expense.category %>
-  </p>
+    <p class="category">
+      <strong>Category:</strong>
+      <%= expense.category %>
+    </p>
 
-  <p>
-    <strong>Description:</strong>
-    <%= expense.description %>
-  </p>
+    <p class="description">
+      <strong>Description:</strong>
+      <%= expense.description %>
+    </p>
 
-  <p>
-    <strong>Amount:</strong>
-    <%= expense.amount %>
-  </p>
+    <p class="amount">
+      <strong>Amount:</strong>
+      $<%= expense.amount %>
+    </p>
 
-  <p>
-    <strong>Due Date:</strong>
-    <%= expense.due_date %>
-  </p>
+    <p class="due-date">
+      <strong>Due Date:</strong>
+      <%= expense.due_date %>
+    </p>
 
-  <p>
-    <strong>Status:</strong>
-    <%= expense.status %>
-  </p>
-
+    <p class="status">
+      <strong>Status:</strong>
+      <%= expense.status %>
+    </p>
+  </div>
 </div>

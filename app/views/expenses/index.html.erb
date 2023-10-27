@@ -146,9 +146,10 @@
     </div>
   </div>
 </div>
-
+<%= pie_chart Expense.group(:status).count %>
   </div>
 <%else%>
+<%= line_chart User.group("DATE(created_at)").count %>
     <h3>Do you want to manage your expense ?</h3>
     <h6>You are at right place! Start using MyExpense app and get ready to pay your upcoming one. </h6> 
     <%= link_to 'Sign Up Now', new_user_registration_path, class:"btn btn-primary"%>
