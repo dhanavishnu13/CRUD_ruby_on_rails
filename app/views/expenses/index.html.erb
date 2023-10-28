@@ -4,15 +4,15 @@
 <% if user_signed_in? %>
   <h3>Expenses List</h3>
   <br/>
-  <div style='align: left'>
+  <div style='align: right'>
     <form method="get" action="<%= expenses_path %>">
         <div class="row g-1">
-          <div class="col-md-2">
+          <div class="col-md-3">
             <%= label_tag 'start_date', 'Start Date:' %>
             <%= date_field_tag 'start_date', params[:start_date] %>
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-3">
             <%= label_tag 'end_date', 'End Date:' %>
             <%= date_field_tag 'end_date', params[:end_date] %>
           </div>
@@ -107,15 +107,12 @@
           </tr>
           <% end %>
           </tbody>
-          
           <tr>
-            
             <td> <strong>Total amount</strong></td> 
             <td><strong><%= @total_amount.values.sum%></strong></td>
-            
           </tr>
-          
           </table>
+          <%= pie_chart @total_amount %>
         </div>
       </div>
     </div>
@@ -141,12 +138,12 @@
           <% end %>
           </tbody>
           </table>
+          <%= pie_chart @category_amount %>
         </div>
       </div>
     </div>
   </div>
 </div>
-<%= pie_chart Expense.group(:status).count %>
   </div>
 <%else%>
 <%= line_chart User.group("DATE(created_at)").count %>
