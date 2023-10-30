@@ -14,12 +14,10 @@ class ExpensesController < ApplicationController
       if params[:order_by_due_date].present?
         @expenses = @expenses.order(:due_date)
       end
-      if params[:start_date].present? && params[:end_date].present? && params[:search].present?
+      if params[:start_date].present? && params[:end_date].present?
         @expenses = @expenses.where(due_date: params[:start_date]..params[:end_date])
-        @expenses = @expenses.where("payee_name LIKE ?", "%#{params[:search]}%")
-      elsif params[:start_date].present? && params[:end_date].present?
-        @expenses = @expenses.where(due_date: params[:start_date]..params[:end_date])
-      elsif params[:search].present?
+      end
+      if params[:search].present?
         @expenses = @expenses.where("payee_name LIKE ?", "%#{params[:search]}%")
       end
       @total_amount = @expenses.group(:status).sum(:amount)
