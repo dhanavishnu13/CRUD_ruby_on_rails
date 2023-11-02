@@ -50,4 +50,10 @@ Things to cover:
   - ![image](https://github.com/dhanavishnu13/CRUD_ruby_on_rails/assets/83368841/5f04b5d9-948a-4b1c-b0ef-0dd299543f89)
  
 * To run the application
-  -Run "rails s"
+  - Run "rails s"
+
+* Chartkick
+  - https://github.com/ankane/chartkick
+ 
+* Query Optimization
+  - https://github.com/flyerhzm/bullet
